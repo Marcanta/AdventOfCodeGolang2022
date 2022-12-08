@@ -52,7 +52,6 @@ func getFirstNElvesAndSum(elves []Elves, N int) ([]Elves, int) {
 	var sum int
 	var firstElves []Elves
 	for i := 0; i < N; i++ {
-		fmt.Printf("elve: %d, calories: %d\n", elves[i], elves[i].total)
 		sum += elves[i].total
 		firstElves = append(firstElves, elves[i])
 	}
@@ -70,5 +69,5 @@ func main() {
 
 	firstElves, sum := getFirstNElvesAndSum(elves, 3)
 
-	fmt.Printf("sum: %d, 3 elves: %s\n", sum, firstElves)
+	fmt.Printf("sum: %d, 3 elves: %v\n", sum, firstElves)
 }
