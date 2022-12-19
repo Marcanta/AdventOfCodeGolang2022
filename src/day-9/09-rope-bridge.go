@@ -39,14 +39,11 @@ func readFile(path string) string {
 }
 
 func moveTail(head Knot, tail Knot) (newTail Knot) {
-	switch xDiff := head.X - tail.X; {
+	switch xDiff, yDiff := head.X-tail.X, head.Y-tail.Y; {
 	case xDiff > 1:
 		newTail = Knot{X: head.X - 1, Y: head.Y}
 	case xDiff < -1:
 		newTail = Knot{X: head.X + 1, Y: head.Y}
-	}
-
-	switch yDiff := head.Y - tail.Y; {
 	case yDiff > 1:
 		newTail = Knot{X: head.X, Y: head.Y - 1}
 	case yDiff < -1:
@@ -77,9 +74,9 @@ func (r *Rope) moveRope(instruction string) {
 		if math.Abs(float64(r.head.X)-float64(r.tail[0].X)) > 1 || math.Abs(float64(r.head.Y)-float64(r.tail[0].Y)) > 1 {
 			r.tail[0] = moveTail(r.head, r.tail[0])
 		}
-		for i := 1; i < len(r.tail); i++ {
-			if math.Abs(float64(r.tail[i-1].X)-float64(r.tail[i].X)) > 1 || math.Abs(float64(r.tail[i-1].Y)-float64(r.tail[i].Y)) > 1 {
-				r.tail[i] = moveTail(r.tail[i-1], r.tail[i])
+		for y := 1; y < len(r.tail); y++ {
+			if math.Abs(float64(r.tail[y-1].X)-float64(r.tail[y].X)) > 1 || math.Abs(float64(r.tail[y-1].Y)-float64(r.tail[y].Y)) > 1 {
+				r.tail[y] = moveTail(r.tail[y-1], r.tail[y])
 			}
 		}
 		r.tailVisited[fmt.Sprintf("%d,%d", r.tail[len(r.tail)-1].X, r.tail[len(r.tail)-1].Y)] = true
